@@ -1,0 +1,13 @@
+
+[project]
+name = "nft-name-service"
+authors = []
+telemetry = false
+analysis = ["check_checker"]
+
+[[project.requirements]]
+contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
+
+[contracts.nft-name-service]
+path = "contracts/nft-name-service.clar"
+depends_on = []
