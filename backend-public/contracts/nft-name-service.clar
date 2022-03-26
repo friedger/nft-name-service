@@ -7,12 +7,20 @@
 (define-public (register (nft <nft-trait>) (id uint) (name (string-utf8 255)))
   (let ((owner (unwrap! (unwrap! (contract-call? nft get-owner id) err-not-found) err-not-found)))
     (asserts! (is-eq tx-sender owner) err-not-authorized)
+    ;; check duplicate name
+    (asserts! (is-none (map-get? names {nft: (contract-of nft), name: name})) err-name-exists)
+    ;; remove old name
+    (match (map-get? names {nft: (contract-of nft), id: id})
+      old-name (map-delete lookup {nft: (contract-of nft), name: old-name})
+      true)
+    ;; register name
     (map-set names {nft: (contract-of nft), id: id} name)
     (map-set lookup {nft: (contract-of nft), name: name} id)
     (ok true)))
 
 (define-public (delete (nft <nft-trait>) (id uint) (name (string-utf8 255)))
   (let ((owner (unwrap! (unwrap! (contract-call? nft get-owner id) err-not-found) err-not-found)))    (asserts! (is-eq tx-sender owner) err-not-authorized)
+    (asserts! (is-eq tx-sender owner) err-not-authorized)
     (map-delete names {nft: (contract-of nft), id: id})
     (map-delete lookup {nft: (contract-of nft), name: name})
     (ok true)))
