@@ -8,6 +8,19 @@ analysis = ["check_checker"]
 [[project.requirements]]
 contract_id = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait"
 
+[contracts.fun-nft]
+path = "contracts/external/fun-nft.clar"
+depends_on = []
+
+[contracts.commission-fixed]
+path = "contracts/external/commission-fixed.clar"
+depends_on = []
+
+[contracts.commission-free]
+path = "contracts/commission-free.clar"
+depends_on = []
+
+
 [contracts.nft-name-service]
 path = "contracts/nft-name-service.clar"
 depends_on = []
